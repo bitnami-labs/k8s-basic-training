@@ -1,8 +1,17 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  # name: XXXX
-  # namespace: XXXX
+  name: ingress
+  namespace: exercise
+  annotations:
+    nginx.ingress.kubernetes.io/affinity: cookie
+    service-upstream: "true"
 spec:
-  # rules: XXXX
-  # ...
+  rules:
+    - host: wordpress.exercise.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: wordpress
+              servicePort: 80

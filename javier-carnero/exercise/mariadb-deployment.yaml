@@ -1,17 +1,28 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  # name: XXXX
-  # namespace: XXXX
+  name: mariadb
+  namespace: exercise
+  labels:
+    app: mariadb
+    type: exercise
 spec:
-  # replicas: XXXX
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+  replicas: 1
   template:
-    # metadata: XXXX
+    metadata:
+      labels:
+        app: mariadb
+        type: exercise
     spec:
       containers:
       - image: bitnami/mariadb:latest
-        # name: XXXX
-        # env: XXXX
-        # ports: XXXX
-        # XXXX
-        # ...
+        name: mariadb
+        env:
+          - name: MARIADB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mariadb
+                key: password

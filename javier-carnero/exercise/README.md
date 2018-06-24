@@ -1,6 +1,8 @@
 # Kubernetes Bitnami Intro Training Exercise
 
-Work to be done.
+Kubernetes training exercise deploying two wordpress connected to mariadb.
+
+With *minikube* started, do `./command.bash` to start the app.
 
 ## Excercise original description:
 

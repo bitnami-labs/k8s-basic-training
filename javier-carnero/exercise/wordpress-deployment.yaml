@@ -1,17 +1,73 @@
 apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
-  # name: XXXX
-  # namespace: XXXX
+  name: wordpress
+  namespace: exercise
+  labels:
+    app: wordpress
+    type: exercise
 spec:
-  # replicas: XXXX
+  revisionHistoryLimit: 3
+  strategy:
+    type: RollingUpdate
+  replicas: 2
   template:
-    # metadata: XXXX
+    metadata:
+      labels:
+        app: wordpress
+        type: exercise
     spec:
       containers:
       - image: bitnami/wordpress:latest
-        # name: XXXX
-        # env: XXXX
-        # ports: XXXX
-        # XXXX
-        # ...
+        name: wordpress
+        env:
+          - name: MARIA_DB_HOST
+            valueFrom:
+              configMapKeyRef:
+                name: training
+                key: mariadb_host
+          - name: MARIADB_ROOT_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mariadb
+                key: password
+          - name: MYSQL_CLIENT_CREATE_DATABASE_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: training
+                key: wp_db_name
+          - name: MYSQL_CLIENT_CREATE_DATABASE_USER
+            valueFrom:
+              configMapKeyRef:
+                name: training
+                key: wp_db_user
+          - name: MYSQL_CLIENT_CREATE_DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: wordpressdb
+                key: password
+          - name: WORDPRESS_DATABASE_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: training
+                key: wp_db_name
+          - name: WORDPRESS_DATABASE_USER
+            valueFrom:
+              configMapKeyRef:
+                name: training
+                key: wp_db_user
+          - name: WORDPRESS_DATABASE_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: wordpressdb
+                key: password
+          - name: WORDPRESS_USERNAME
+            valueFrom:
+              configMapKeyRef:
+                name: training
+                key: wp_user
+          - name: WORDPRESS_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: wordpress
+                key: password
