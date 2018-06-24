@@ -7,6 +7,10 @@ metadata:
     nginx.ingress.kubernetes.io/affinity: cookie
     service-upstream: "true"
 spec:
+  tls:
+    - hosts:
+        - wordpress.exercise.com
+      secretName: sslcerts
   rules:
     - host: wordpress.exercise.com
       http:

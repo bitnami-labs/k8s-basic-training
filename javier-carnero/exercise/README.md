@@ -2,7 +2,9 @@
 
 Kubernetes training exercise deploying two wordpress connected to mariadb.
 
-With *minikube* started, do `./command.bash` to start the app.
+With *minikube* started, do `./command.bash` to start the app. Finally access to https://wordpress.exercise.com
+
+*NOTE:* Some liveness/readiness probes have been disabled because aparently they don't behaviour as expected under minikube. 
 
 ## Excercise original description:
 
