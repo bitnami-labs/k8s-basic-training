@@ -71,3 +71,11 @@ spec:
               secretKeyRef:
                 name: wordpress
                 key: password
+        # livenessProbe:
+        #   httpGet:
+        #     path: /wp-login.php
+        #     port: http
+        # readinessProbe:
+        #   httpGet:
+        #     path: /wp-login.php
+        #     port: http

@@ -26,3 +26,11 @@ spec:
               secretKeyRef:
                 name: mariadb
                 key: password
+        livenessProbe:
+          tcpSocket:
+            port: 3306
+        readinessProbe:
+          exec:
+            command: ["sh", "-c", "exec mysqladmin status -uroot -p$MARIADB_ROOT_PASSWORD"]
+          initialDelaySeconds: 5
+          periodSeconds: 3

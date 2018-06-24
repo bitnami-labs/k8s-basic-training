@@ -12,6 +12,6 @@ kubectl create -f mariadb-svc.yaml
 kubectl create -f wordpress-deployment.yaml
 kubectl create -f wordpress-svc.yaml
 
-#minikube addons enable ingress
+minikube addons enable ingress
 kubectl create -f ingress.yaml
 echo "$(minikube ip)   wordpress.exercise.com" | sudo tee -a /etc/hosts
