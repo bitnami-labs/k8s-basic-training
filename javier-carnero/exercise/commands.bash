@@ -4,9 +4,14 @@ kubectl create namespace exercise
 
 kubectl create -f cm.yaml
 
-kubectl create secret generic mariadb --namespace="exercise" --from-literal=password=mariapower
-kubectl create secret generic wordpressdb --namespace="exercise" --from-literal=password=wordpresspower
-kubectl create secret generic wordpress --namespace="exercise" --from-literal=password=training
+kubectl create secret generic database-credentials -n exercise \
+--from-literal=root-password=mariapower \
+--from-literal=wp-dbname=wordpress \
+--from-literal=wp-user=wordpress \
+--from-literal=wp-password=wordpresspower
+kubectl create secret generic wp-credentials -n exercise \
+--from-literal=user=kubernetes \
+--from-literal=password=training
 
 kubectl create -f mariadb-deployment.yaml
 kubectl create -f mariadb-svc.yaml

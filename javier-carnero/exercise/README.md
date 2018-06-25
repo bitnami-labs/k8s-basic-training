@@ -1,6 +1,6 @@
 # Kubernetes Bitnami Intro Training Exercise
 
-Kubernetes training exercise deploying two wordpress connected to mariadb.
+Kubernetes training exercise deploying a set of WP instances connected to mariadb.
 
 With *minikube* started, do `./command.bash` to start the app. Finally access to https://wordpress.exercise.com
 
@@ -61,4 +61,3 @@ juanariza131/linter:latest
 ```
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -subj "/CN=wordpress.exercise.com" -keyout wordpress.key -out wordpress.crt  
 ```
-

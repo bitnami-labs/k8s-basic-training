@@ -24,58 +24,69 @@ spec:
           - name: MARIA_DB_HOST
             valueFrom:
               configMapKeyRef:
-                name: training
-                key: mariadb_host
+                name: wordpress-config
+                key: mariadb-host
           - name: MARIADB_ROOT_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: mariadb
-                key: password
+                name: database-credentials
+                key: root-password
           - name: MYSQL_CLIENT_CREATE_DATABASE_NAME
             valueFrom:
-              configMapKeyRef:
-                name: training
-                key: wp_db_name
+              secretKeyRef:
+                name: database-credentials
+                key: wp-dbname
           - name: MYSQL_CLIENT_CREATE_DATABASE_USER
             valueFrom:
-              configMapKeyRef:
-                name: training
-                key: wp_db_user
+              secretKeyRef:
+                name: database-credentials
+                key: wp-user
           - name: MYSQL_CLIENT_CREATE_DATABASE_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: wordpressdb
-                key: password
+                name: database-credentials
+                key: wp-password
           - name: WORDPRESS_DATABASE_NAME
             valueFrom:
-              configMapKeyRef:
-                name: training
-                key: wp_db_name
+              secretKeyRef:
+                name: database-credentials
+                key: wp-dbname
           - name: WORDPRESS_DATABASE_USER
             valueFrom:
-              configMapKeyRef:
-                name: training
-                key: wp_db_user
+              secretKeyRef:
+                name: database-credentials
+                key: wp-user
           - name: WORDPRESS_DATABASE_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: wordpressdb
-                key: password
+                name: database-credentials
+                key: wp-password
           - name: WORDPRESS_USERNAME
             valueFrom:
-              configMapKeyRef:
-                name: training
-                key: wp_user
+              secretKeyRef:
+                name: wp-credentials
+                key: user
           - name: WORDPRESS_PASSWORD
             valueFrom:
               secretKeyRef:
-                name: wordpress
+                name: wp-credentials
                 key: password
-        # livenessProbe:
-        #   httpGet:
-        #     path: /wp-login.php
-        #     port: http
-        # readinessProbe:
-        #   httpGet:
-        #     path: /wp-login.php
-        #     port: http
+          - name: WORDPRESS_BLOG_NAME
+            valueFrom:
+              configMapKeyRef:
+                name: wordpress-config
+                key: blog-name
+        livenessProbe:
+          httpGet:
+            scheme: HTTPS
+            path: /wp-login.php
+            port: 443
+          initialDelaySeconds: 300
+          periodSeconds: 30
+        readinessProbe:
+          httpGet:
+            scheme: HTTPS
+            path: /wp-login.php
+            port: 443
+          initialDelaySeconds: 180
+          periodSeconds: 15

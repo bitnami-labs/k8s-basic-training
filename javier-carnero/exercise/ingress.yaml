@@ -5,7 +5,6 @@ metadata:
   namespace: exercise
   annotations:
     nginx.ingress.kubernetes.io/affinity: cookie
-    service-upstream: "true"
 spec:
   tls:
     - hosts:
@@ -18,4 +17,4 @@ spec:
           - path: /
             backend:
               serviceName: wordpress
-              servicePort: 80
+              servicePort: frontend

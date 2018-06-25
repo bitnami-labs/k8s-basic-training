@@ -1,12 +1,8 @@
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: training
+  name: wordpress-config
   namespace: exercise
 data:
-  mariadb_host: mariadb
-  wp_db_name: wordpress
-  wp_db_user: wordpress
-  wp_user: kubernetes
-  
-  
+  mariadb-host: mariadb
+  blog-name: JCarnero's Kubernetes Training
